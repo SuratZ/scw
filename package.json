@@ -1,9 +1,9 @@
 {
   "name": "scw-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
-  "homepage": "https://suratz.github.io/scw",
+  "homepage": "https://www.scw.co.th",
 
   "scripts": {
     "dev": "vite",
