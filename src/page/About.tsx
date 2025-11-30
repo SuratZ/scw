@@ -120,11 +120,14 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <img
-                src="./images/LMS.jpg"
+                src="./images/LMS.svg"
                 alt="LMS logo"
                 style={{
                   height: "10vh",
-                  border: "10px solid #0e0e0e",
+                  paddingBottom: "5px",
+                  paddingLeft: "50px",
+                  paddingRight: "50px",
+                  border: "4px solid whitesmoke",
                   borderRadius: "10px",
                 }}
               />
@@ -135,12 +138,30 @@ export default function About() {
               rel="noopener noreferrer"
             >
               <img
-                src="./images/QFS.png"
+                src="./images/QFS.webp"
                 alt="QFS logo"
                 style={{
                   height: "10vh",
                   border: "4px solid whitesmoke",
-                  paddingRight: "10px",
+                  paddingRight: "15px",
+                  paddingLeft: "15px",
+                  borderRadius: "10px",
+                }}
+              />
+            </a>
+            <a
+              href="https://www.zenith-worldwide.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./images/Zenith.webp"
+                alt="Zenith logo"
+                style={{
+                  height: "10vh",
+                  border: "4px solid whitesmoke",
+                  paddingRight: "18px",
+                  paddingLeft: "18px",
                   borderRadius: "10px",
                 }}
               />

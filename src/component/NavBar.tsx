@@ -9,11 +9,11 @@ const menuItems = [
     path: "/about",
   },
   {
-    label: "Certificate",
-    path: "/certificate"
+    label: "Services",
+    path: "/services"
   },
   {
-    label: "Verify Certification",
+    label: "Verify Cert.",
     path: "/verify-cert"
   },
   {

@@ -1,11 +1,8 @@
 import {
-  Alert,
-  Autocomplete,
   Box,
   Button,
   Card,
   CardContent,
-  Collapse,
   Container,
   IconButton,
   Modal,
@@ -14,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-// import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import "../component/modal.css";
@@ -36,18 +32,16 @@ type SheetData = {
   [key: string]: string;
 };
 
-// const sheetId = "1O6uJI7KtabX3XVPrlwT8_GTe1OaM_Ldm22RkMiq-c_g"; // replace with your Google Sheet ID
-// const GOOGLE_SHEET_API_URL = `https://opensheet.elk.sh/${sheetId}/1`; // change to index of your sheet.
+const sheetId = "1O6uJI7KtabX3XVPrlwT8_GTe1OaM_Ldm22RkMiq-c_g"; // replace with your Google Sheet ID
+const GOOGLE_SHEET_API_URL = `https://opensheet.elk.sh/${sheetId}/1`; // change to index of your sheet.
 
 const VerifiyCert: React.FC = () => {
-  const [query, setQuery] = useState<string | null>("");
-  const [inputValue, setInputValue] = useState("");
+  const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<SheetData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [data, setData] = useState<SheetData[]>([]);
   const [openModal, setOpenModal] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,25 +49,24 @@ const VerifiyCert: React.FC = () => {
     setResult(null);
 
     // Validate required fields
-    if (query === null || query.trim() === "") {
+    if (query.trim() === "") {
       setError("Input required.");
-      setOpen(true);
       return;
     }
-    setOpen(false);
     setLoading(true);
-
     const found = data.find(
       (row) =>
-        row.serialNoEng?.trim().toLowerCase().includes(query.toLowerCase()) ||
-        row.serialNoThai?.trim().toLowerCase().includes(query.toLowerCase()) ||
-        row.customerName?.toLowerCase().includes(query.toLowerCase())
+        row.serialNoEng?.trim().toLowerCase() +
+          row.serialNoThai?.trim().toLowerCase() ===
+        query.toLowerCase()
+      // row.serialNoEng?.trim().toLowerCase().includes(query.toLowerCase()) ||
+      // row.serialNoThai?.trim().toLowerCase().includes(query.toLowerCase()) ||
+      // row.customerName?.toLowerCase().includes(query.toLowerCase())
     );
     setResult(found || null);
     if (found) {
       setOpenModal(true);
     } else {
-      setOpen(true);
       setError("No matching certificate found.");
     }
     setLoading(false);
@@ -81,86 +74,44 @@ const VerifiyCert: React.FC = () => {
 
   useEffect(() => {
     setData([]);
-    // fetch(GOOGLE_SHEET_API_URL)
-    //   .then((res) => res.json())
-    //   .then((rows) => {
-    //     const filterData = rows.filter(
-    //       (row: SheetData) =>
-    //         row.serialNoEng || row.serialNoThai || row.customerName
-    //     );
-    //     setData(filterData);
-    //   });
+    fetch(GOOGLE_SHEET_API_URL)
+      .then((res) => res.json())
+      .then((rows) => {
+        const filterData = rows.filter(
+          (row: SheetData) =>
+            row.serialNoEng || row.serialNoThai || row.customerName
+        );
+        setData(filterData);
+      });
   }, []);
 
-  // const onClickView = (companyName: string) => {
-  //   setResult(data.find((row) => row.customerName === companyName) || null);
-  //   setOpenModal(true);
-  // };
-
-  // const columns: GridColDef[] = [
-  //   {
-  //     field: "customerName",
-  //     headerName: "Company Name",
-  //     width: 350,
-  //     disableColumnMenu: true,
-  //   },
-  //   {
-  //     field: "serialNoThai",
-  //     headerName: "Certificate No.",
-  //     width: 150,
-  //     sortable: false,
-  //     disableColumnMenu: true,
-  //   },
-  //   {
-  //     field: "sysOfCert",
-  //     headerName: "Standard",
-  //     width: 150,
-  //     sortable: false,
-  //     disableColumnMenu: true,
-  //   },
-  //   {
-  //     field: "expiredDate",
-  //     headerName: "Expiry Date",
-  //     width: 150,
-  //     sortable: false,
-  //   },
-  //   {
-  //     field: "status",
-  //     headerName: "Status",
-  //     width: 60,
-  //     sortable: false,
-  //     disableColumnMenu: true,
-  //   },
-  //   {
-  //     field: "",
-  //     headerName: "Action",
-  //     width: 80,
-  //     sortable: false,
-  //     disableColumnMenu: true,
-  //     renderCell: (params) => (
-  //       <Button
-  //         variant="contained"
-  //         onClick={onClickView.bind(null, params.row.customerName)}
-  //       >
-  //         View
-  //       </Button>
-  //     ),
-  //   },
-  // ];
-
-  // const rows = data.map((row, index) => ({
-  //   ...row,
-  //   id: index + 1,
-  // }));
-
-  // const paginationModel = { page: 0, pageSize: 5 };
+  useEffect(() => {
+    if (error !== "") {
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  }, [error]);
 
   return (
     <>
+      <Box
+        sx={{
+          backgroundImage: 'url(./images/zooming.webp)',
+          backgroundSize: '200%',
+          backgroundPosition: '00% 55%',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'rgba(0, 0, 0, 0.10)',
+          backgroundBlendMode: 'overlay',
+          minHeight: ['90vh'],
+        }}>
       <Container
         sx={{
           justifyContent: "row",
           display: ["", "flex"],
+          minHeight: '80vh',
+          alignItems: 'center',
           pt: 4,
           gap: [0, 4],
         }}
@@ -169,6 +120,10 @@ const VerifiyCert: React.FC = () => {
           component="form"
           onSubmit={handleSearch}
           sx={{
+            p: 3,
+            borderRadius: 2,
+            boxShadow: 3,
+            bgcolor: 'rgba(255, 255, 255, 0.90)',
             flexDirection: "column",
           }}
         >
@@ -199,58 +154,29 @@ const VerifiyCert: React.FC = () => {
               my: 2,
             }}
           >
-            <Box>
-              <Autocomplete
-                sx={{ width: ["auto", "50vh", "50vh"] }}
-                freeSolo
+            <Box
+              sx={{
+                pt: [2, 0],
+                justifyContent: ["center", ""],
+                display: ["flex", ""],
+              }}>
+              <TextField
+                label="Serial No."
+                variant="filled"
+                error={error !== ""}
                 value={query}
-                // onChange={(_, newValue: string | null) => {
-                //   setQuery(newValue);
-                // }}
-                inputValue={inputValue}
-                onInputChange={(_, newInputValue) => {
-                  setInputValue(newInputValue);
-                  setQuery(newInputValue);
-                }}
-                id="controllable-states"
-                options={
-                  // Only show unique customer names in dropdown
-                  Array.from(
-                    new Set(data.map((row) => row.customerName).filter(Boolean))
-                  )
-                }
-                filterOptions={(options, state) => {
-                  // Show suggestions if input matches customerName or certNo
-                  const input = state.inputValue.trim().toLowerCase();
-                  if (!input) return options;
-                  // Find rows matching either customerName or certNo
-                  const matchedRows = data.filter(
-                    (row) =>
-                      row.customerName?.toLowerCase().includes(input) ||
-                      row.serialNoEng?.toLowerCase().includes(input) ||
-                      row.serialNoThai?.toLowerCase().includes(input)
-                  );
-                  // Return unique customer names from matched rows
-                  return Array.from(
-                    new Set(
-                      matchedRows.map((row) => row.customerName).filter(Boolean)
-                    )
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Certificate No or Customer Name"
-                    placeholder="Enter certificate no or customer name"
-                  />
-                )}
+                onChange={(e) => setQuery(e.target.value)}
+                sx={{ width: ["100vh", "50vh"],
+                  mb: [error ? 0 : 3, 3]
+                 }}
+                helperText={error}
               />
             </Box>
             <Box
               sx={{
                 pt: [2, 0],
                 justifyContent: ["center", ""],
-                display: ["flex", ""],
+                display: ["flex", ""]
               }}
             >
               <Button
@@ -260,54 +186,16 @@ const VerifiyCert: React.FC = () => {
                 sx={{
                   height: "50px",
                   width: ["100vh", "10vh"],
+                  mb: [0, error ? 6 : 3]
                 }}
               >
                 View
               </Button>
             </Box>
           </Container>
-          <Collapse in={open}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center", // Centers horizontally
-                alignItems: "center", // Centers vertically (if height allows)
-              }}
-            >
-              <Alert
-                severity="warning"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-                sx={{ mb: 2, width: ["100%", "50%"] }}
-              >
-                {error}
-              </Alert>
-            </Box>
-          </Collapse>
         </Container>
       </Container>
-      <Container sx={{ display: "flex", justifyContent: "center" }}>
-        {/* <Paper sx={{ height: ["45vh","40vh"], width: ["90%", "90%",'auto'] }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
-            sx={{ border: 0 }}
-          />
-        </Paper> */}
-      </Container>
-
+      </Box>
       {openModal && result && (
         <Modal
           open={openModal}
@@ -315,31 +203,35 @@ const VerifiyCert: React.FC = () => {
           className="modal-overlay"
         >
           <Card className="modal-content">
-            <CardContent sx={{                  
-                  maxHeight: "80vh",
-                  overflow: "scroll",}}>
-              <Box sx={{ position: "absolute", top: 20, right: 20 }}>
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpenModal(false);
-                  }}
-                >
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              </Box>
-              <Typography
-                variant="h5"
-                component="div"
-                style={{ fontWeight: "bold", marginBottom: "4px" }}
+            <Box sx={{ position: "absolute", top: 20, right: 20 }}>
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpenModal(false);
+                }}
               >
-                {result.customerName}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {result.scopeOfCert}
-              </Typography>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            </Box>
+
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: "bold", mb: 1, mx: 3 }}
+            >
+              {result.customerName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mx: 3 }}>
+              {result.scopeOfCert}
+            </Typography>
+            <CardContent
+              sx={{
+                maxHeight: ["60vh", "70vh"],
+                overflow: "scroll",
+              }}
+            >
               <Container
                 sx={{
                   display: "flex",
@@ -348,9 +240,9 @@ const VerifiyCert: React.FC = () => {
                 {result && (
                   <Container
                     sx={{
-                      mt: 2,
+                      mt: 1,
                       border: "1px solid #ccc",
-                      padding: "16px",
+                      p: 2,
                       borderRadius: "8px",
                       backgroundColor: "#ffffff",
                     }}

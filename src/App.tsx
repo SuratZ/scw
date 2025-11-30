@@ -23,7 +23,7 @@ export default function App() {
       <Routes>
       <Route path="home" element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="certificate" element={<Certification />} />
+      <Route path="services" element={<Certification />} />
       <Route path="verify-cert" element={<VerifiyCert />} />
       <Route path="contact" element={<Contact />} />
       {/* Redirect any unmatched routes to home */}
