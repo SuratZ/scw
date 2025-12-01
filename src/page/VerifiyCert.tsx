@@ -162,7 +162,7 @@ const VerifiyCert: React.FC = () => {
               }}>
               <TextField
                 required
-                label="S/N or Company name"
+                label="Project No. or Company name"
                 variant="filled"
                 error={error !== ""}
                 value={query}
