@@ -52,16 +52,16 @@ const VerifiyCert: React.FC = () => {
     if (query.trim() === "") {
       setError("Input required.");
       return;
+    } else if (query.trim().length < 5) {
+      setError("Input 5 parameters minimum.");
+      return;
     }
     setLoading(true);
     const found = data.find(
       (row) =>
-        row.serialNoEng?.trim().toLowerCase() +
-          row.serialNoThai?.trim().toLowerCase() ===
-        query.toLowerCase()
-      // row.serialNoEng?.trim().toLowerCase().includes(query.toLowerCase()) ||
-      // row.serialNoThai?.trim().toLowerCase().includes(query.toLowerCase()) ||
-      // row.customerName?.toLowerCase().includes(query.toLowerCase())
+      (row.projectNo.toLowerCase() === query.toLowerCase()) || 
+      (row.projectNo.replaceAll('-', '').toLowerCase() === query.toLowerCase()) ||
+      (row.customerName.toLowerCase().startsWith(query.toLowerCase().trim()))
     );
     setResult(found || null);
     if (found) {
@@ -161,7 +161,8 @@ const VerifiyCert: React.FC = () => {
                 display: ["flex", ""],
               }}>
               <TextField
-                label="Serial No."
+                required
+                label="S/N or Company name"
                 variant="filled"
                 error={error !== ""}
                 value={query}
