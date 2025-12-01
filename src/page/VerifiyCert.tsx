@@ -225,7 +225,7 @@ const VerifiyCert: React.FC = () => {
               {result.customerName}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mx: 3 }}>
-              {result.scopeOfCert}
+              {result.address}
             </Typography>
             <CardContent
               sx={{
