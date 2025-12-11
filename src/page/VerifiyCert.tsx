@@ -274,8 +274,8 @@ const VerifiyCert: React.FC = () => {
                         }}
                       />
                       <TextField
-                        label="Certificate No."
-                        value={`${result.serialNoEng || result.serialNoThai}`}
+                        label="Project No."
+                        value={`${result.projectNo}`}
                         variant="standard"
                         slotProps={{
                           input: {
