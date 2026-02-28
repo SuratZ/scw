@@ -150,13 +150,13 @@ export default function About() {
               />
             </a>
             <a
-              href="https://www.zenith-worldwide.com/"
+              href="https://oeqcert.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
-                src="./images/Zenith.webp"
-                alt="Zenith logo"
+                src="./images/oeq.webp"
+                alt="OEQ logo"
                 style={{
                   height: "10vh",
                   border: "4px solid whitesmoke",
