@@ -1,4 +1,4 @@
-import { BrowserRouter as  Routes, Route, Navigate, HashRouter } from 'react-router-dom';
+import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import { useEffect } from 'react';
 import NavBar from './component/NavBar';
 import Home from './page/Home';
@@ -21,12 +21,12 @@ export default function App() {
     <HashRouter basename="/">
       <NavBar />
       <Routes>
-        <Route path="home" element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="services" element={<Certification />} />
-        <Route path="verify-cert" element={<VerifiyCert />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="*" element={<Navigate to="home" replace />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Certification />} />
+        <Route path="/verify-cert" element={<VerifiyCert />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
       <Footer />
     </HashRouter>
