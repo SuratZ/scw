@@ -1,4 +1,4 @@
-import { Typography, Container, Box } from "@mui/material";
+import { Typography, Container, Box, Link } from "@mui/material";
 import { InfoCompany } from "../constant/certDetail";
 import './style.css'
 
@@ -108,16 +108,24 @@ export default function About() {
           </Typography>
           <Box
             sx={{
-              display: ["", "flex"],
-              justifyContent: ["","center"],
-              // alignItems: "center",
-              gap: 5,
+              display: "grid",
+              gridTemplateColumns: ["repeat(2, 1fr)", "repeat(4, 1fr)"],
+              justifyItems: "center",
+              alignItems: "center",
+              gap: 2,
             }}
           >
-            <a
+            {/* <ImageList
+            sx={{width: ['auto',"60%"], height: ['100','auto'] }}
+            variant="quilted"
+            cols={4}
+            rowHeight={100}
+            > */}
+              <Link
               href="https://www.lmscert.com/"
               target="_blank"
               rel="noopener noreferrer"
+              // sx={{ display: 'inline-block' }}
             >
               <img
                 src="./images/LMS.svg"
@@ -127,45 +135,66 @@ export default function About() {
                   paddingBottom: "5px",
                   paddingLeft: "50px",
                   paddingRight: "50px",
-                  border: "4px solid whitesmoke",
+                  border: "2px solid whitesmoke",
                   borderRadius: "10px",
                 }}
               />
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://qfscerts.com/"
               target="_blank"
               rel="noopener noreferrer"
+              // sx={{ display: 'inline-block' }}
             >
               <img
                 src="./images/QFS.webp"
                 alt="QFS logo"
                 style={{
                   height: "10vh",
-                  border: "4px solid whitesmoke",
+                  border: "2px solid whitesmoke",
                   paddingRight: "15px",
                   paddingLeft: "15px",
                   borderRadius: "10px",
                 }}
               />
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://oeqcert.com/"
               target="_blank"
               rel="noopener noreferrer"
+              // sx={{ display: 'inline-block' }}
             >
               <img
                 src="./images/oeq.webp"
                 alt="OEQ logo"
                 style={{
                   height: "10vh",
-                  border: "4px solid whitesmoke",
+                  border: "2px solid whitesmoke",
                   paddingRight: "18px",
                   paddingLeft: "18px",
                   borderRadius: "10px",
                 }}
               />
-            </a>
+            </Link>
+            <Link
+              href="https://en.tuv.at/"
+              target="_blank"
+              rel="noopener noreferrer"
+              // sx={{ display: 'inline-block' }}
+            >
+              <img
+                src="./images/tuv.webp"
+                alt="TUV logo"
+                style={{
+                  height: "10vh",
+                  border: "2px solid whitesmoke",
+                  paddingRight: "18px",
+                  paddingLeft: "18px",
+                  borderRadius: "10px",
+                }}
+              />
+            </Link>
+            {/* </ImageList> */}
           </Box>
         </Box>
       </Container>
