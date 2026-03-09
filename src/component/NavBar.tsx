@@ -3,31 +3,55 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useState } from "react";
 import { PhoneInTalk } from "@mui/icons-material";
 
-const menuItems = [
+interface MenuItem {
+  id: number;
+  label: string;
+  path: string;
+  isActive: boolean;
+}
+
+const menuItems: MenuItem[] = [
   {
+    id: 1,
     label: "About",
     path: "/about",
+    isActive: false,
   },
   {
+    id: 2,
     label: "Services",
-    path: "/services"
+    path: "/services",
+    isActive: false
   },
   {
+    id: 3,
     label: "Verify Cert.",
-    path: "/verify-cert"
+    path: "/verify-cert",
+    isActive: false
   },
   {
+    id: 4,
     label: "Contact",
-    path: "/contact"
+    path: "/contact",
+    isActive: false
   }
 ];
 
 
 export default function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [menus, setMenus] = useState(menuItems);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleMenuItemClick = (id: number) => {
+    setMenus((prevMenus) =>
+      prevMenus.map((menu) =>
+        menu.id === id ? { ...menu, isActive: true } : { ...menu, isActive: false }
+      )
+    );
   };
 
   const DrawerList = (
@@ -35,10 +59,11 @@ export default function NavBar() {
       <Typography variant="h6" sx={{ p: 2 }}>
         Menu
       </Typography>
-   
-        {menuItems.map((item,index) => (
+        {menus.map((item,index) => (
           <Box key={index} pb={2} pl={2}>
-            <Button key={item.label} color="inherit" component={RouterLink} to={item.path}>
+            <Button key={item.label} component={RouterLink} to={item.path}
+            sx={{ color: 'inherit', borderBottom: item.isActive ? '2px solid #EAD292' : 'none' }}
+            onClick={() => {handleMenuItemClick(item.id)}}>
               {item.label}
             </Button>
           </Box>
@@ -57,6 +82,7 @@ export default function NavBar() {
         to="/home"
         sx={{ textTransform: 'none' }}
         aria-label="SCW Home"
+        onClick={()=>setMenus(menuItems)}
         >
           <img src="./scw-logo.jpg" alt="SCW Logo" style={{ height: 40, width: 40, borderRadius: '50%' }} />
           <Container sx={{}}>
@@ -80,8 +106,10 @@ export default function NavBar() {
         justifyContent: 'center',
         }}
       >
-        {menuItems.map((item) => (
-          <Button key={item.label} color="inherit" component={RouterLink} to={item.path}>
+        {menus.map((item) => (
+          <Button key={item.label} color="inherit" component={RouterLink} to={item.path}
+          sx={{ borderBottom: item.isActive ? '2px solid #EAD292' : 'none' }}
+            onClick={() => {handleMenuItemClick(item.id)}}>
             {item.label}
           </Button>
         ))}
