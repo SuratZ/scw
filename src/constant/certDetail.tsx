@@ -368,7 +368,7 @@ export const InfoCompany: React.FC = () => {
   };
   return (
     <>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" sx={{fontSize:[18, 24]}} gutterBottom>
         {contactName}
       </Typography>
       <Typography variant="body1" gutterBottom>

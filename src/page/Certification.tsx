@@ -127,7 +127,7 @@ export default function Certification() {
                   <CardMedia
                     component="img"
                     sx={{
-                      height: 100,
+                      height: [80,100],
                       objectFit: "contain",
                     }}
                     image={`./images/certifications/${cert.image
@@ -135,8 +135,9 @@ export default function Certification() {
                       .toLowerCase()}.png`}
                     alt={cert.name}
                   />
-                  <CardContent sx={{height: 90}}>
-                    <Typography variant="h5" component="div">
+                  <CardContent sx={{height: [150, 90]}}>
+                    <Typography variant="h5" component="div"
+                    sx={{fontSize:[20], fontWeight:'bold'}}>
                       {cert.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary"

@@ -29,7 +29,7 @@ export default function About() {
               sx={{
                 fontFamily: "Roboto",
                 fontWeight: "bold",
-                textAlign: "start",
+                textAlign: ["center","start"],
                 fontSize: 24,
                 pb: 2,
                 color: '#012C4E',
@@ -80,9 +80,9 @@ export default function About() {
               fontFamily: "Roboto",
               fontWeight: "bold",
               fontSize: 24,
-              pb: 2,
+              pb: [1,2],
               color: '#012C4E',
-              textAlign: "start",
+              textAlign: ["center","start"],
             }}
           >
             CONTACT INFO
@@ -99,7 +99,7 @@ export default function About() {
             sx={{
               fontFamily: "Roboto",
               fontWeight: "bold",
-              textAlign: ["start","center"],
+              textAlign: ["center","start"],
               fontSize: 24,
               pb: [1,2],
             }}
@@ -109,9 +109,10 @@ export default function About() {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: ["repeat(2, 1fr)", "repeat(4, 1fr)"],
+              gridTemplateColumns: ["1fr", "repeat(4, 1fr)"],
               justifyItems: "center",
               alignItems: "center",
+              width: "auto",
               gap: 2,
             }}
           >
