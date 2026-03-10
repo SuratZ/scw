@@ -109,7 +109,7 @@ export default function About() {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: ["1fr", "repeat(4, 1fr)"],
+              gridTemplateColumns: ["1fr", "repeat(3, 1fr)"],
               justifyItems: "center",
               alignItems: "center",
               width: "auto",
@@ -159,7 +159,7 @@ export default function About() {
                 }}
               />
             </Link>
-            <Link
+            {/* <Link
               href="https://oeqcert.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -176,7 +176,7 @@ export default function About() {
                   borderRadius: "10px",
                 }}
               />
-            </Link>
+            </Link> */}
             <Link
               href="https://en.tuv.at/"
               target="_blank"
