@@ -35,7 +35,7 @@ type SheetData = {
 const sheetId = "1O6uJI7KtabX3XVPrlwT8_GTe1OaM_Ldm22RkMiq-c_g"; // replace with your Google Sheet ID
 const GOOGLE_SHEET_API_URL = `https://opensheet.elk.sh/${sheetId}/1`; // change to index of your sheet.
 
-const VerifiyCert: React.FC = () => {
+const VerifyCert: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<SheetData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,6 +72,24 @@ const VerifiyCert: React.FC = () => {
     setLoading(false);
   };
 
+  const deduplicateData = (filterData: SheetData[]): SheetData[] => {
+    return filterData.reduce((acc: SheetData[], current: SheetData) => {
+      const x = acc.find(item => item.projectNo === current.projectNo);
+      if (x) {
+        // 28/11/2025
+        const currentDate = new Date(current.expiredDate);
+        const xDate = new Date(x.expiredDate);
+        if (currentDate > xDate) {
+          return acc.map(item => item.projectNo === x.projectNo ? current : item);
+        } else {
+          return acc;
+        }
+      } else {
+        return acc.concat([current]);
+      }
+    }, []);
+  };
+
   useEffect(() => {
     setData([]);
     fetch(GOOGLE_SHEET_API_URL)
@@ -81,7 +99,9 @@ const VerifiyCert: React.FC = () => {
           (row: SheetData) =>
             row.serialNoEng || row.serialNoThai || row.customerName
         );
-        setData(filterData);
+        // filterout duplicate data with expiredDate if only show one with newer expiredDate for each projectNo 28/11/2025
+        const uniqueData = deduplicateData(filterData);
+        setData(uniqueData);
       });
   }, []);
 
@@ -368,7 +388,7 @@ const VerifiyCert: React.FC = () => {
                         }}
                       />
                       <TextField
-                        label="Expiry Date"
+                        label="Expiry Date (dd/mm/yyyy)"
                         value={result.expiredDate}
                         variant="standard"
                         slotProps={{
@@ -409,4 +429,4 @@ const VerifiyCert: React.FC = () => {
   );
 };
 
-export default VerifiyCert;
+export default VerifyCert;

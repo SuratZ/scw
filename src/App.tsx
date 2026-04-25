@@ -4,7 +4,7 @@ import NavBar from './component/NavBar';
 import Home from './page/Home';
 import About from './page/About';
 import Footer from './component/Footer';
-import VerifiyCert from './page/VerifiyCert';
+import VerifyCert from './page/VerifiyCert';
 import Certification from './page/Certification';
 import Contact from './page/Contact';
 
@@ -24,7 +24,7 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Certification />} />
-        <Route path="/verify-cert" element={<VerifiyCert />} />
+        <Route path="/verify-cert" element={<VerifyCert />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
